@@ -1,0 +1,249 @@
+@use '../variables' as *;
+@use '../mixins' as *;    // For @include breakpoint and @include button-variant
+@use "sass:math";      // For math.div
+@use "sass:color";     // For color.adjust / color.scale
+
+.cart-section { // Opening brace for .cart-section
+    padding: ($spacing-unit * 4) 0 ($spacing-unit * 6) 0;
+
+    .cart-loading, .empty-cart-message {
+        text-align: center;
+        font-style: italic;
+        color: $text-color-light;
+        padding: $spacing-unit * 5 0;
+        font-size: 1.2rem;
+        border: 2px dashed $border-color;
+        border-radius: $border-radius-md;
+        background-color: $surface-color;
+    }
+
+    .empty-cart-message {
+        p {
+            margin-bottom: $spacing-unit * 2;
+        }
+    }
+    
+    .cart-item {
+        background-color: $surface-color;
+        border-radius: $border-radius-md;
+        box-shadow: $box-shadow-light;
+        padding: $spacing-unit * 2.5;
+        margin-bottom: $spacing-unit * 3;
+        display: grid;
+        grid-template-columns: auto 1fr auto; 
+        gap: $spacing-unit * 2.5;
+        align-items: flex-start; 
+
+        @include breakpoint(sm) {
+            grid-template-columns: 100px 1fr 150px 120px; 
+            align-items: center; 
+            gap: $spacing-unit * 3;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: $border-radius-sm;
+            border: 1px solid $border-color;
+            @include breakpoint(sm) {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        .cart-item-details {
+            .item-name {
+                font-size: 1.2rem;
+                font-family: $secondary-font; // Using Montserrat
+                font-weight: 700; 
+                color: $text-color;
+                margin-bottom: math.div($spacing-unit, 2);
+                a { 
+                    color: $text-color;
+                    &:hover { color: $primary-color; }
+                }
+            }
+            .item-customizations {
+                font-size: 0.85rem;
+                color: $text-color-light;
+                margin-bottom: $spacing-unit;
+                ul {
+                    padding-left: $spacing-unit * 2;
+                    list-style: disc;
+                    li { margin-bottom: math.div($spacing-unit, 2); }
+                }
+                .meal-badge {
+                    display: inline-block;
+                    background-color: $accent-color;
+                    color: $text-on-primary;
+                    padding: 2px 6px;
+                    border-radius: $border-radius-sm;
+                    font-size: 0.8em;
+                    font-weight: bold;
+                    margin-left: $spacing-unit;
+                }
+            }
+            .item-price-single { 
+                font-size: 0.9em;
+                color: $text-color-light;
+                @include breakpoint(sm) {
+                    display: none; 
+                }
+            }
+        }
+        
+        .cart-item-quantity-control {
+            display: flex;
+            align-items: center;
+            gap: math.div($spacing-unit, 2);
+            grid-column: 1 / -1; 
+            margin-top: $spacing-unit * 1.5;
+            justify-content: center; 
+
+            @include breakpoint(sm) {
+                grid-column: auto; 
+                margin-top: 0;
+                justify-content: flex-start; 
+            }
+
+            .quantity-btn {
+                @include button-variant(color.adjust($border-color, $lightness:5%), $text-color, color.adjust($border-color, $blackness: 5%));
+                width: 36px;
+                height: 36px;
+                font-size: 1.2rem;
+                padding: 0;
+                line-height: 34px;
+                border-radius: $border-radius-sm;
+            }
+            .item-quantity-input {
+                width: 45px;
+                text-align: center;
+                font-size: 1.1rem;
+                font-weight: bold;
+                padding: $spacing-unit math.div($spacing-unit, 2);
+                border: 1px solid $border-color;
+                border-radius: $border-radius-sm;
+                background-color: $surface-color;
+                
+                -moz-appearance: textfield;
+                appearance: textfield; 
+                
+                &::-webkit-outer-spin-button,
+                &::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+            }
+        }
+
+        .cart-item-actions-price {
+            text-align: right;
+            grid-column: 1 / -1; 
+            margin-top: $spacing-unit * 1.5;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+
+            @include breakpoint(sm) {
+                grid-column: auto; 
+                margin-top: 0;
+                display: block; 
+            }
+            
+            .item-total-price {
+                font-size: 1.2rem;
+                font-weight: bold;
+                color: $primary-color;
+                margin-bottom: $spacing-unit;
+                @include breakpoint(sm) { 
+                    margin-bottom: 0;
+                }
+            }
+            .remove-item-btn { // This is an .icon-btn
+                // Assumes .icon-btn is defined globally (e.g., in _components.scss)
+                // Specific color overrides for the remove context:
+                color: $text-color-light; 
+                
+                &:hover {
+                    color: $error-color; 
+                    background-color: color.scale($error-color, $alpha: -90%); 
+                }
+                @include breakpoint(sm) { 
+                    margin-top: math.div($spacing-unit, 2); // Use math.div
+                }
+            }
+        }
+    } // End of .cart-item
+
+    .cart-summary {
+        background-color: $surface-color;
+        border-radius: $border-radius-lg;
+        box-shadow: $box-shadow-medium;
+        padding: $spacing-unit * 3 $spacing-unit * 4;
+        margin-top: $spacing-unit * 5;
+        border: 1px solid $border-color;
+
+        .promo-code-section {
+            margin-bottom: $spacing-unit * 3;
+            padding-bottom: $spacing-unit * 3;
+            border-bottom: 1px dashed $border-color;
+            h3 {
+                font-size: 1.3rem;
+                color: $secondary-color;
+                margin-bottom: $spacing-unit * 1.5;
+            }
+            .promo-input-group {
+                display: flex;
+                gap: $spacing-unit;
+                input[type="text"] {
+                    flex-grow: 1;
+                    padding: $spacing-unit * 1.25;
+                }
+                #apply-promo-btn {
+                    flex-shrink: 0; 
+                    padding: $spacing-unit * 1.25 $spacing-unit * 2.5;
+                }
+            }
+            .promo-feedback-text {
+                display: block;
+                margin-top: $spacing-unit;
+                font-size: 0.9em;
+                &.success { color: $success-color; }
+                &.error { color: $error-color; }
+            }
+        }
+
+        .summary-details {
+            margin-bottom: $spacing-unit * 3;
+            .summary-row {
+                display: flex;
+                justify-content: space-between;
+                padding: $spacing-unit 0;
+                font-size: 1.1rem;
+                color: $text-color-light;
+                span:last-child {
+                    font-weight: 500;
+                    color: $text-color;
+                }
+                &.total-row {
+                    font-size: 1.4rem;
+                    padding-top: $spacing-unit * 1.5;
+                    border-top: 1px solid $border-color;
+                    margin-top: $spacing-unit;
+                    span, strong { color: $primary-color; }
+                    strong { font-weight: bold; }
+                }
+                .discount-amount {
+                    color: $success-color;
+                }
+            }
+        }
+
+        .btn-block {
+            width: 100%;
+            text-align: center;
+        }
+    } // End of .cart-summary
+
+} // End of .cart-section

@@ -1,0 +1,63 @@
+@use '../variables' as *;
+@use '../mixins' as *; // For @include breakpoint
+// @use "sass:color"; // Only if specific color functions are used directly in this file beyond variables
+
+// If .page-hero-section styles are defined elsewhere (e.g., in _about.scss or a global layout file)
+// and the HTML on contact.html uses <section class="page-hero-section">,
+// then you don't need to redefine .page-hero-section here.
+// The line ".page-hero-section;" was an error and has been removed.
+
+.contact-details-section {
+    padding: ($spacing-unit * 5) 0;
+
+    .contact-grid {
+        display: grid;
+        gap: $spacing-unit * 5;
+
+        @include breakpoint(lg) {
+            grid-template-columns: 1fr 1.5fr;
+        }
+    }
+
+    .contact-info {
+        h2 {
+            margin-bottom: $spacing-unit * 2;
+        }
+        p {
+            margin-bottom: $spacing-unit * 1.5;
+            line-height: 1.7;
+
+            .info-label { 
+                color: $secondary-color;
+            }
+        }
+        h3 { 
+            font-size: 1.5rem;
+            color: $secondary-color;
+            margin-top: $spacing-unit * 3;
+            margin-bottom: $spacing-unit;
+        }
+    }
+
+    .contact-form-container {
+        h2 {
+            margin-bottom: $spacing-unit * 3;
+        }
+    }
+}
+
+.map-section {
+    padding: ($spacing-unit * 3) 0 ($spacing-unit * 5) 0;
+    h2 {
+        text-align: center;
+        margin-bottom: $spacing-unit * 3;
+    }
+    #map-placeholder { 
+        border-radius: $border-radius-md;
+    }
+    iframe {
+        border-radius: $border-radius-md;
+    }
+}
+
+// Feedback messages for forms - assuming .form-feedback-message from _components.scss is used

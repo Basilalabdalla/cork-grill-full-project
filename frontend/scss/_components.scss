@@ -1,0 +1,429 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use "sass:color"; 
+@use "sass:math";   
+
+// Buttons
+.btn {
+    display: inline-block;
+    padding: ($spacing-unit * 1.5) ($spacing-unit * 3);
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: $border-radius-sm;
+    cursor: pointer;
+    border: 2px solid transparent;
+    line-height: 1.5;
+    transition: background-color $transition-speed $transition-ease,
+                border-color $transition-speed $transition-ease,
+                color $transition-speed $transition-ease,
+                transform $transition-speed $transition-ease,
+                box-shadow $transition-speed $transition-ease;
+
+    &:hover, &:focus {
+        text-decoration: none;
+        transform: translateY(-2px);
+        box-shadow: $box-shadow-light; 
+    }
+
+    &:active {
+        transform: translateY(1px); 
+        box-shadow: none; 
+    }
+
+    &:disabled, &.disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+        box-shadow: none;
+        transform: none;
+    }
+}
+
+.btn-primary {
+    @include button-variant($primary-color, $text-on-primary, color.adjust($primary-color, $blackness: 8%));
+    border-color: $primary-color;
+     &:hover, &:focus {
+        border-color: color.adjust($primary-color, $blackness: 8%);
+    }
+}
+
+.btn-secondary {
+    @include button-variant($secondary-color, $text-on-secondary, color.adjust($secondary-color, $blackness: 8%));
+    border-color: $secondary-color;
+     &:hover, &:focus {
+        border-color: color.adjust($secondary-color, $blackness: 8%);
+    }
+}
+
+.btn-accent {
+    @include button-variant($accent-color, $text-on-primary, $accent-color-darker);
+    border-color: $accent-color;
+    &:hover, &:focus {
+        border-color: $accent-color-darker;
+    }
+}
+
+.btn-success {
+    @include button-variant($success-color, $white, color.adjust($success-color, $blackness: 10%));
+    border-color: $success-color;
+    &:hover, &:focus {
+        border-color: color.adjust($success-color, $blackness: 10%);
+    }
+}
+
+.btn-danger {
+    @include button-variant($error-color, $white, color.adjust($error-color, $blackness: 10%));
+    border-color: $error-color;
+     &:hover, &:focus {
+        border-color: color.adjust($error-color, $blackness: 10%);
+    }
+}
+
+.btn-outline-primary {
+    background-color: transparent;
+    color: $primary-color;
+    border: 2px solid $primary-color;
+
+    &:hover, &:focus {
+        background-color: $primary-color;
+        color: $text-on-primary;
+    }
+}
+
+.btn-outline-secondary {
+    background-color: transparent;
+    color: $secondary-color;
+    border: 2px solid $secondary-color;
+
+    &:hover, &:focus {
+        background-color: $secondary-color;
+        color: $text-on-secondary;
+    }
+}
+
+.btn-sm {
+    padding: ($spacing-unit * 1) ($spacing-unit * 2);
+    font-size: 0.9rem;
+}
+
+.btn-lg {
+    padding: ($spacing-unit * 1.75) ($spacing-unit * 3.5);
+    font-size: 1.1rem;
+    border-radius: $border-radius-md;
+}
+
+// General Icon Button Style
+.icon-btn {
+    background: none;
+    border: none;
+    padding: $spacing-unit * 0.75;
+    cursor: pointer;
+    line-height: 1; 
+    border-radius: $border-radius-sm;
+    transition: background-color $transition-speed $transition-ease, color $transition-speed $transition-ease;
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        width: 18px; 
+        height: 18px;
+        stroke-width: 2.25; 
+    }
+
+    &:hover {
+        background-color: $background-color; 
+    }
+}
+
+
+// Basic Card
+.card {
+    background-color: $surface-color; 
+    border-radius: $border-radius-md;
+    box-shadow: $box-shadow-light;
+    overflow: hidden; 
+    transition: box-shadow $transition-speed * 1.5 $transition-ease, 
+                transform $transition-speed * 1.5 $transition-ease; 
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $border-color;
+
+    &:hover {
+        box-shadow: $box-shadow-medium;
+        transform: translateY(-6px); 
+    }
+
+    .card-image-placeholder {
+        width: 100%;
+        height: 200px;
+        background-color: $background-color; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $text-color-light;
+    }
+    .card-image {
+        width: 100%;
+        height: 200px; 
+        object-fit: cover;
+        border-bottom: 1px solid $border-color;
+    }
+
+    .card-content {
+        padding: $spacing-unit * 2.5;
+        flex-grow: 1; 
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .card-title {
+        font-size: 1.3rem;
+        margin-bottom: $spacing-unit * 1.5;
+        color: $text-color; 
+        font-family: $secondary-font; // Using Montserrat
+        font-weight: 700;
+    }
+
+    .card-description {
+        font-size: 0.95rem;
+        color: $text-color-light;
+        margin-bottom: $spacing-unit * 2;
+        flex-grow: 1;
+        line-height: 1.5;
+    }
+
+    .card-price {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: $primary-color;
+        margin-bottom: $spacing-unit * 2;
+    }
+
+    .card-actions {
+        margin-top: auto; 
+        .btn { 
+            width: 100%;
+        }
+    }
+}
+
+// Form Styling
+.form-group {
+    margin-bottom: $spacing-unit * 2.5;
+
+    label {
+        display: block;
+        margin-bottom: $spacing-unit;
+        font-weight: 500;
+        color: $text-color;
+        font-size: 0.95rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"],
+    input[type="number"],
+    textarea,
+    select {
+        width: 100%;
+        padding: $spacing-unit * 1.5;
+    }
+
+    textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+}
+
+.form-error {
+    color: $error-color;
+    font-size: 0.875em;
+    margin-top: $spacing-unit * 0.75;
+    display: block;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacing-unit * 1.5;
+
+    input[type="checkbox"],
+    input[type="radio"] {
+        margin-right: $spacing-unit;
+        width: auto; 
+        height: auto;
+        flex-shrink: 0; 
+        accent-color: $primary-color;
+    }
+
+    label {
+        margin-bottom: 0; 
+        font-weight: normal;
+        color: $text-color;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+}
+
+// In scss/_components.scss
+// ... other styles ...
+
+.form-feedback-message {
+    padding: ($spacing-unit * 1.5) ($spacing-unit * 2);
+    margin-top: $spacing-unit * 2;
+    border-radius: $border-radius-sm;
+    font-size: 0.95rem;
+    border: 1px solid transparent;
+
+    &.success {
+        // Make background a semi-transparent version of success-color
+        // Assuming it's on a light (e.g., $surface-color or $background-color) background
+        background-color: rgba($success-color, 0.15); // Example: 15% opaque success color
+        border-color: $success-color;
+        color: color.adjust($success-color, $blackness: 15%); 
+    }
+
+    &.error {
+        background-color: rgba($error-color, 0.15); // Example: 15% opaque error color
+        border-color: $error-color;
+        color: color.adjust($error-color, $blackness: 15%); 
+    }
+    &.info {
+        background-color: rgba($accent-color, 0.2); // Example: 20% opaque accent color
+        border-color: $accent-color;
+        color: color.adjust($accent-color, $blackness: 25%); 
+    }
+}
+
+// ... rest of _components.scss ...
+
+// Toast Notification Styles
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 3000; 
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-unit;
+    max-width: 90%; 
+
+    @include breakpoint(sm) {
+        max-width: 350px; 
+    }
+}
+
+.toast-message {
+    background-color: $secondary-color; 
+    color: $text-on-secondary;
+    padding: ($spacing-unit * 1.5) ($spacing-unit * 2.5);
+    border-radius: $border-radius-md; 
+    box-shadow: $box-shadow-medium;
+    opacity: 0;
+    transform: translateX(calc(100% + 20px)); 
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    min-width: 250px; 
+    display: flex;
+    align-items: center;
+    gap: $spacing-unit * 1.5; 
+    pointer-events: auto; 
+
+    &.show {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    &.success {
+        background-color: $success-color;
+        color: $white; 
+    }
+    &.error {
+        background-color: $error-color;
+        color: $white;
+    }
+    &.info { 
+        background-color: $accent-color; 
+        color: $text-color; 
+    }
+
+    .toast-icon { 
+        flex-shrink: 0;
+        svg {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor; 
+        }
+    }
+    span:not(.toast-icon) { 
+        flex-grow: 1;
+    }
+}
+
+// Flying Basket Styles
+.flying-basket-btn {
+    position: fixed;
+    bottom: 90px; 
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background-color: $primary-color; 
+    color: $text-on-primary;
+    border-radius: 50%;
+    box-shadow: $box-shadow-medium;
+    @include flex-center; 
+    text-decoration: none;
+    z-index: 998; 
+    
+    opacity: 0;
+    transform: scale(0.5) translateY(50px); 
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s $transition-ease, 
+                transform 0.3s $transition-ease, 
+                visibility 0s linear 0.3s, 
+                background-color 0.3s $transition-ease;
+
+    &.visible {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        visibility: visible;
+        pointer-events: auto;
+        transition-delay: 0s, 0s, 0s, 0s; 
+    }
+
+    &:hover {
+        background-color: color.adjust($primary-color, $blackness: 10%); 
+        transform: scale(1.05); 
+    }
+
+    .basket-icon {
+        width: 28px;
+        height: 28px;
+        stroke-width: 2;
+    }
+
+    .flying-basket-count {
+        position: absolute;
+        top: -2px;       
+        right: -2px;
+        background-color: $accent-color; 
+        color: $text-on-primary; 
+        border-radius: 50%;
+        font-size: 0.75rem;
+        font-weight: bold;
+        min-width: 20px; 
+        height: 20px;
+        padding: 0 math.div($spacing-unit, 2);
+        @include flex-center;
+        line-height: 20px; 
+        border: 1px solid $surface-color; 
+    }
+
+    &.animate-pulse {
+        animation: pulseEffect 0.8s ease-out;
+    }
+}

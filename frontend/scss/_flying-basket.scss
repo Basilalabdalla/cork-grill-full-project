@@ -1,0 +1,80 @@
+@use 'variables' as *;
+@use 'mixins' as *; // For @include flex-center if needed
+@use "sass:math";   // For math.div
+@use "sass:color";  // <<<< ADD THIS LINE
+
+.flying-basket-btn {
+    position: fixed;
+    bottom: 90px; // Position above the scroll-to-top button if it's at 20px
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background-color: $primary-color; // Use primary or accent color
+    color: $text-on-primary;
+    border-radius: 50%;
+    box-shadow: $box-shadow-medium;
+    @include flex-center; // Center icon and count
+    text-decoration: none;
+    z-index: 998; // Below scroll-to-top (999) and modals (2000+), toast (3000+)
+    
+    opacity: 0;
+    transform: scale(0.5) translateY(50px); // Initial state for animation: small and down
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s $transition-ease, 
+                transform 0.3s $transition-ease, 
+                visibility 0s linear 0.3s, // Delay visibility change until after transition
+                background-color 0.3s $transition-ease;
+
+    &.visible {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        visibility: visible;
+        pointer-events: auto;
+        transition-delay: 0s, 0s, 0s, 0s; // Reset delay when becoming visible
+    }
+
+    &:hover {
+        background-color: color.adjust($primary-color, $blackness: 10%); // This will now work
+        transform: scale(1.05); // Slight scale on hover
+    }
+
+    .basket-icon {
+        width: 28px;
+        height: 28px;
+        stroke-width: 2;
+    }
+
+    .flying-basket-count {
+        position: absolute;
+        top: -2px;       // Position count badge slightly offset
+        right: -2px;
+        background-color: $accent-color; // Use accent for count badge
+        color: $text-on-primary; // Or $black if accent is light
+        border-radius: 50%;
+        font-size: 0.75rem;
+        font-weight: bold;
+        min-width: 20px; // Ensure circle shape for single digit
+        height: 20px;
+        padding: 0 math.div($spacing-unit, 2);
+        @include flex-center;
+        line-height: 20px; // For vertical centering of text
+        border: 1px solid $surface-color; // Optional border for badge
+    }
+
+    // Attention-grabbing animation
+    &.animate-pulse {
+        animation: pulseEffect 0.8s ease-out;
+    }
+}
+
+// Note: If pulseEffect keyframes are already in _animations.scss, you don't need to repeat them here.
+// If _animations.scss is @used by main.scss, its keyframes will be globally available.
+// However, having it here doesn't hurt if it's self-contained to this component.
+@keyframes pulseEffect {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.15); }
+    50% { transform: scale(0.95); }
+    75% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}

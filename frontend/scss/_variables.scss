@@ -1,0 +1,53 @@
+@use "sass:color"; 
+
+// Colors - NEW PALETTE
+$primary-color: #E67E22;      
+$secondary-color: #34495E;    
+$accent-color: #F1C40F;       
+$accent-color-darker: color.adjust($accent-color, $blackness: 10%); 
+
+$text-color: #2C3E50;         
+$text-color-light: #7F8C8D;   
+$text-on-primary: #FFFFFF;    
+$text-on-secondary: #FFFFFF;  
+
+$background-color: #ECF0F1;   
+$surface-color: #FFFFFF;      
+$border-color: #BDC3C7;       
+
+$success-color: #2ECC71;      
+$error-color: #E74C3C;        
+$warning-color: #F39C12;      
+
+$white: #FFFFFF;
+$black: #1c1c1c;
+
+// Fonts - UPDATED
+$primary-font: 'Open Sans', sans-serif;    // For body text, UI elements
+$secondary-font: 'Montserrat', sans-serif; // For headings
+
+
+// Breakpoints
+$breakpoint-xs: 480px;
+// ... (rest of variables remain the same) ...
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// Spacing
+$spacing-unit: 8px;
+
+// Borders
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+
+// Shadows
+$box-shadow-light: 0 2px 5px rgba($black, 0.08);
+$box-shadow-medium: 0 5px 15px rgba($black, 0.1);
+$box-shadow-heavy: 0 10px 25px rgba($black, 0.12);
+
+// Transitions
+$transition-speed: 0.25s;
+$transition-ease: ease-in-out;

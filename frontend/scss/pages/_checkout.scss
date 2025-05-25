@@ -1,0 +1,152 @@
+@use '../variables' as *;
+@use '../mixins' as *; // For @include breakpoint
+@use "sass:color";    // For color.adjust
+
+.checkout-section {
+    padding: ($spacing-unit * 4) 0 ($spacing-unit * 6) 0;
+
+    .checkout-layout {
+        display: grid;
+        gap: $spacing-unit * 5;
+
+        @include breakpoint(lg) {
+            grid-template-columns: 2fr 1fr;
+        }
+    }
+}
+
+.checkout-form-container {
+    background-color: $surface-color;
+    padding: $spacing-unit * 3;
+    border-radius: $border-radius-lg;
+    box-shadow: $box-shadow-light;
+    border: 1px solid $border-color;
+
+    @include breakpoint(md) {
+        padding: $spacing-unit * 4;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        color: $secondary-color;
+        margin-bottom: $spacing-unit * 3;
+        padding-bottom: $spacing-unit * 1.5;
+        border-bottom: 1px solid $border-color;
+    }
+    h3 { 
+        font-size: 1.3rem;
+        color: $text-color;
+        margin-top: $spacing-unit * 3;
+        margin-bottom: $spacing-unit * 2;
+    }
+
+    .payment-info-text {
+        font-size: 0.9em;
+        color: $text-color-light;
+        background-color: color.adjust($warning-color, $alpha: -0.65); // lighten($warning-color, 35%)
+        border: 1px solid $warning-color;
+        padding: $spacing-unit * 1.5;
+        border-radius: $border-radius-sm;
+        margin-bottom: $spacing-unit * 2;
+    }
+
+    .form-row {
+        display: flex;
+        gap: $spacing-unit * 2;
+        .form-group {
+            flex: 1;
+        }
+    }
+
+    .delivery-address-fields {
+        border-left: 3px solid $primary-color;
+        padding-left: $spacing-unit * 2.5;
+        margin: ($spacing-unit * 3) 0;
+    }
+
+    #placeOrderBtn {
+        margin-top: $spacing-unit * 3;
+    }
+}
+
+.checkout-summary-container {
+    background-color: $surface-color;
+    padding: $spacing-unit * 3;
+    border-radius: $border-radius-lg;
+    box-shadow: $box-shadow-light;
+    border: 1px solid $border-color;
+    align-self: flex-start; 
+    position: sticky;
+    top: $spacing-unit * 3 + 60px; // Approx header height (adjust if needed)
+
+    @include breakpoint(md) {
+        padding: $spacing-unit * 4;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+        color: $secondary-color;
+        margin-bottom: $spacing-unit * 2.5;
+    }
+
+    .order-summary-items {
+        max-height: 300px; 
+        overflow-y: auto;
+        margin-bottom: $spacing-unit * 2;
+        padding-right: $spacing-unit; 
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: $spacing-unit 0;
+            border-bottom: 1px solid $background-color; 
+            font-size: 0.95rem;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            .item-info {
+                .item-name {
+                    font-weight: 500;
+                    color: $text-color;
+                }
+                .item-qty {
+                    color: $text-color-light;
+                    font-size: 0.9em;
+                }
+            }
+            .item-price {
+                font-weight: 500;
+                color: $text-color;
+                white-space: nowrap;
+            }
+        }
+    }
+
+    .summary-totals {
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: $spacing-unit 0;
+            font-size: 1rem; 
+            color: $text-color-light;
+            span:last-child {
+                font-weight: 500;
+                color: $text-color;
+            }
+            &.total-row {
+                font-size: 1.3rem; 
+                padding-top: $spacing-unit * 1.5;
+                border-top: 1px solid $border-color;
+                margin-top: $spacing-unit;
+                span, strong { color: $primary-color; }
+                strong { font-weight: bold; }
+            }
+            .discount-amount {
+                color: $success-color;
+            }
+        }
+    }
+}

@@ -1,0 +1,38 @@
+@use '../variables' as *;
+@use '../mixins' as *; // For @include breakpoint
+@use "sass:color";    // For rgba if used in background image
+
+.hero-section {
+    background-color: $primary-color;
+    // Example if using rgba:
+    // background-image: linear-gradient(rgba($black, 0.5), rgba($black, 0.5)), url('../assets/images/hero-bg.jpg');
+    color: $white; 
+    padding: ($spacing-unit * 8) 0;
+    text-align: center;
+
+    h1 {
+        font-size: 3rem;
+        color: $white; 
+        margin-bottom: $spacing-unit * 2;
+        @include breakpoint(md) {
+            font-size: 4rem;
+        }
+    }
+
+    p {
+        font-size: 1.25rem;
+        margin-bottom: $spacing-unit * 3;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.featured-items-section, .deals-section {
+    padding: ($spacing-unit * 5) 0;
+
+    h2 {
+        text-align: center;
+        margin-bottom: $spacing-unit * 4;
+    }
+}

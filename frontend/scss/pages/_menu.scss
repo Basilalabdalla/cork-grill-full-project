@@ -1,0 +1,51 @@
+@use '../variables' as *;
+@use '../mixins' as *; // For @include breakpoint
+@use "sass:math";      // <<<< ADD THIS LINE
+
+.menu-hero-section {
+    background-color: $primary-color;
+    color: $white;
+    padding: ($spacing-unit * 5) 0;
+    text-align: center;
+    h1 { color: $white; }
+}
+
+.menu-display-section {
+    padding: ($spacing-unit * 4) 0;
+
+    .menu-filters {
+        margin-bottom: $spacing-unit * 3;
+        text-align: center;
+        .filter-btn {
+            margin: 0 math.div($spacing-unit, 2) ($spacing-unit); // math.div
+            &.active {
+                background-color: $accent-color;
+                color: $text-on-primary; // Use text-on-primary for accent bg
+                border-color: $accent-color;
+            }
+        }
+    }
+
+    .menu-category {
+        margin-bottom: $spacing-unit * 4;
+        .category-title {
+            font-size: 1.8rem;
+            color: $secondary-color;
+            border-bottom: 2px solid $accent-color;
+            padding-bottom: $spacing-unit;
+            margin-bottom: $spacing-unit * 3;
+        }
+        .items-grid { 
+             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            @include breakpoint(md) {
+                 grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            }
+        }
+    }
+    .loading-text {
+        text-align: center;
+        font-style: italic;
+        color: $text-color-light;
+        padding: $spacing-unit * 3 0;
+    }
+}

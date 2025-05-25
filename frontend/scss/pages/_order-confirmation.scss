@@ -1,0 +1,158 @@
+@use '../variables' as *;
+@use '../mixins' as *;    // For @include flex-center
+@use "sass:color";     // For color.adjust
+
+.order-confirmation-section {
+    padding: ($spacing-unit * 5) 0;
+    min-height: 70vh; 
+    @include flex-center; 
+
+    .confirmation-box {
+        background-color: $surface-color;
+        padding: $spacing-unit * 4 ($spacing-unit * 5);
+        border-radius: $border-radius-lg;
+        box-shadow: $box-shadow-heavy; 
+        text-align: center;
+        max-width: 700px;
+        width: 100%;
+        border-top: 5px solid $success-color; 
+
+        h1 {
+            color: $success-color;
+            font-size: 2.5rem;
+            margin-bottom: $spacing-unit * 1.5;
+        }
+
+        .order-id-display {
+            font-size: 1.2rem;
+            color: $text-color-light;
+            margin-bottom: $spacing-unit * 2;
+            strong {
+                color: $text-color;
+            }
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: $spacing-unit * 3;
+        }
+
+        .confirmation-icon {
+            margin: 0 auto ($spacing-unit * 2) auto;
+            width: 80px;
+            height: 80px;
+
+            &.success-icon svg {
+                width: 100%;
+                height: 100%;
+                display: block;
+                stroke-width: 2;
+                stroke: $success-color;
+                stroke-miterlimit: 10;
+                circle {
+                    stroke-dasharray: 166;
+                    stroke-dashoffset: 166;
+                    stroke-width: 2;
+                    stroke-miterlimit: 10;
+                    stroke: $success-color;
+                    fill: none;
+                    animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) 0.3s forwards;
+                }
+                path {
+                    transform-origin: 50% 50%;
+                    stroke-dasharray: 48;
+                    stroke-dashoffset: 48;
+                    animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.9s forwards;
+                }
+            }
+        }
+    }
+
+    .order-summary-preview {
+        margin-top: $spacing-unit * 4;
+        margin-bottom: $spacing-unit * 4;
+        padding: $spacing-unit * 3;
+        background-color: $background-color; 
+        border-radius: $border-radius-md;
+        text-align: left;
+
+        h2 {
+            font-size: 1.3rem;
+            color: $secondary-color;
+            margin-bottom: $spacing-unit * 2;
+            text-align: center;
+        }
+
+        #confirmedOrderSummaryItems {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: $spacing-unit * 2;
+            padding-right: $spacing-unit;
+
+            .summary-item { 
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                padding: ($spacing-unit * 0.75) 0;
+                border-bottom: 1px solid color.adjust($border-color, $lightness: 10%);
+                font-size: 0.9rem;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+                .item-info {
+                    .item-name { font-weight: 500; }
+                    .item-qty { color: $text-color-light; font-size: 0.9em; }
+                }
+                .item-price { font-weight: 500; }
+            }
+        }
+
+        .summary-totals { 
+            .summary-row {
+                display: flex;
+                justify-content: space-between;
+                padding: ($spacing-unit * 0.75) 0;
+                font-size: 1rem;
+                color: $text-color-light;
+                span:last-child {
+                    font-weight: 500;
+                    color: $text-color;
+                }
+                &.total-row {
+                    font-size: 1.2rem;
+                    padding-top: $spacing-unit * 1.5;
+                    border-top: 1px solid $border-color;
+                    margin-top: $spacing-unit;
+                    span, strong { color: $primary-color; }
+                    strong { font-weight: bold; }
+                }
+                .discount-amount { color: $success-color; }
+            }
+        }
+    }
+
+    .confirmation-actions {
+        margin-top: $spacing-unit * 3;
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-unit * 1.5;
+        
+        @include breakpoint(sm) {
+            flex-direction: row;
+            justify-content: center;
+            gap: $spacing-unit * 2;
+        }
+
+        .btn {
+            width: 100%;
+            @include breakpoint(sm) {
+                width: auto;
+                min-width: 180px; 
+            }
+        }
+    }
+}
+
+// Keyframes for stroke animation are in _animations.scss

@@ -1,0 +1,28 @@
+// SCSS/MAIN.SCSS
+
+// SASS MODULES (@use)
+@use 'variables' as *; 
+@use 'mixins' as *;    
+@use 'base';
+@use 'animations'; 
+@use 'layout';
+@use 'components'; // Ensure _flying-basket styles are here or @use 'flying-basket';
+
+// Page-specific styles
+@use 'pages/home';
+@use 'pages/menu';
+@use 'pages/about';
+@use 'pages/contact';
+@use 'pages/item-detail';
+@use 'pages/cart';
+@use 'pages/checkout';
+@use 'pages/order-confirmation';
+@use 'pages/my-account';
+@use 'pages/admin';
+// If _flying-basket.scss is separate:
+// @use 'flying-basket'; 
+
+
+// CSS IMPORTS (Google Fonts)
+// Replace old font import with Montserrat and Open Sans
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap');

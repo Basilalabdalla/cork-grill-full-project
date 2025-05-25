@@ -1,0 +1,241 @@
+@use '../variables' as *;
+@use '../mixins' as *;    // For @include breakpoint
+@use "sass:math";      // For math.div
+@use "sass:color";     // For color.adjust (if any explicit lightening/darkening needed beyond variables)
+
+.account-section {
+    padding: ($spacing-unit * 4) 0 ($spacing-unit * 6) 0;
+
+    .auth-tabs {
+        display: flex;
+        margin-bottom: $spacing-unit * 3;
+        border-bottom: 1px solid $border-color;
+
+        .tab-link {
+            padding: ($spacing-unit * 1.5) ($spacing-unit * 3);
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: $text-color-light;
+            border: none;
+            background: none;
+            cursor: pointer;
+            position: relative; 
+            transition: color $transition-speed $transition-ease;
+
+            &:hover {
+                color: $text-color;
+            }
+
+            &.active {
+                color: $primary-color;
+                font-weight: bold;
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -1px; 
+                    left: 0;
+                    right: 0;
+                    height: 3px;
+                    background-color: $primary-color;
+                }
+            }
+        }
+    }
+
+    .auth-tab-content {
+        display: none; 
+        background-color: $surface-color;
+        padding: $spacing-unit * 3;
+        border-radius: $border-radius-md;
+        box-shadow: $box-shadow-light;
+        border: 1px solid $border-color;
+
+
+        &.active {
+            display: block;
+            animation: fadeInUp $transition-speed * 2 $transition-ease;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            color: $secondary-color;
+            margin-bottom: $spacing-unit * 3;
+            text-align: center;
+        }
+        .auth-form {
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        .btn-block {
+            width: 100%;
+            margin-top: $spacing-unit * 1.5;
+        }
+    }
+}
+
+#accountDashboardContainer {
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: $spacing-unit * 3;
+        padding-bottom: $spacing-unit * 2;
+        border-bottom: 1px solid $border-color;
+        h2 { 
+            font-size: 1.8rem;
+            color: $secondary-color;
+            margin-bottom: 0;
+        }
+    }
+    h3 { 
+        font-size: 1.5rem;
+        color: $text-color;
+        margin-bottom: $spacing-unit * 2.5;
+    }
+    #orderHistoryContainer {
+        .order-history-item {
+            background-color: $surface-color;
+            border: 1px solid $border-color;
+            border-radius: $border-radius-md;
+            padding: $spacing-unit * 2.5;
+            margin-bottom: $spacing-unit * 2.5;
+            box-shadow: $box-shadow-light;
+            transition: transform $transition-speed $transition-ease, box-shadow $transition-speed $transition-ease;
+
+            &:hover {
+                transform: translateY(-3px);
+                box-shadow: $box-shadow-medium;
+            }
+
+            .order-info {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap; 
+                gap: $spacing-unit;
+                margin-bottom: $spacing-unit * 1.5;
+
+                .order-id {
+                    font-weight: bold;
+                    color: $primary-color;
+                    font-size: 1.1rem;
+                }
+                .order-date, .order-total {
+                    font-size: 0.95rem;
+                    color: $text-color-light;
+                }
+                .order-total strong {
+                    color: $text-color;
+                }
+            }
+            .view-details-btn {
+                font-size: 0.9rem;
+                text-decoration: underline;
+            }
+        }
+        .no-orders-message {
+            text-align: center;
+            font-style: italic;
+            color: $text-color-light;
+            padding: $spacing-unit * 3;
+            border: 1px dashed $border-color;
+            border-radius: $border-radius-sm;
+        }
+    }
+}
+
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 2000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba($black, 0.6); 
+
+    &.open {
+        display: flex; 
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-content {
+        background-color: $surface-color;
+        margin: auto; 
+        padding: $spacing-unit * 4;
+        border: 1px solid $border-color;
+        border-radius: $border-radius-lg;
+        width: 90%;
+        max-width: 650px; 
+        box-shadow: $box-shadow-heavy;
+        position: relative; 
+
+        h2 {
+            font-size: 1.6rem;
+            color: $secondary-color;
+            margin-top: 0;
+            margin-bottom: $spacing-unit * 3;
+            text-align: center;
+        }
+    }
+
+    .close-modal-btn {
+        color: $text-color-light;
+        position: absolute;
+        top: $spacing-unit * 1.5;
+        right: $spacing-unit * 2.5;
+        font-size: 28px;
+        font-weight: bold;
+        transition: color $transition-speed $transition-ease;
+
+        &:hover,
+        &:focus {
+            color: $error-color;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    }
+
+    #modalOrderContent {
+        .order-detail-header {
+            margin-bottom: $spacing-unit * 2;
+            p {
+                margin-bottom: math.div($spacing-unit, 2); //math.div
+                font-size: 1rem;
+                strong { color: $text-color; }
+            }
+        }
+        .modal-items-list {
+            margin-bottom: $spacing-unit * 2;
+            h4 {
+                font-size: 1.1rem;
+                color: $text-color;
+                margin-bottom: $spacing-unit;
+            }
+            .modal-item {
+                display: flex;
+                justify-content: space-between;
+                padding: $spacing-unit 0;
+                border-bottom: 1px solid $background-color;
+                font-size: 0.95rem;
+                .item-name { font-weight: 500;}
+                .item-qty { color: $text-color-light; margin-left: $spacing-unit; }
+                .item-customizations {
+                    font-size: 0.85em; color: $text-color-light; margin-left: $spacing-unit*2;
+                    ul {list-style: disc; padding-left: $spacing-unit*2;}
+                }
+            }
+        }
+        .modal-summary-totals { 
+             .summary-row {
+                display: flex;
+                justify-content: space-between;
+                padding: math.div($spacing-unit,2) 0; //math.div
+                font-size: 1rem;
+                &.total-row { font-size: 1.1rem; font-weight: bold; color: $primary-color; margin-top: $spacing-unit;}
+            }
+        }
+    }
+}

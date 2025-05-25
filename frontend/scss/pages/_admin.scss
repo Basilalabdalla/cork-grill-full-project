@@ -1,0 +1,453 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+@use "sass:math";
+@use "sass:color";
+
+.admin-body {
+    background-color: $background-color;
+    font-family: $primary-font;
+    color: $text-color;
+    margin: 0;
+}
+
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.admin-sidebar {
+    width: 260px;
+    background-color: $secondary-color;
+    color: $text-on-secondary;
+    padding: $spacing-unit * 2 0;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: 1100;
+    transform: translateX(-100%);
+
+    &.open {
+        transform: translateX(0);
+    }
+
+    @include breakpoint(lg) {
+        position: static;
+        transform: translateX(0);
+        flex-shrink: 0;
+    }
+
+    .sidebar-header {
+        padding: 0 $spacing-unit * 2 $spacing-unit * 2 $spacing-unit * 2;
+        border-bottom: 1px solid rgba($white, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: $white;
+            .logo-image {
+                height: 35px;
+                margin-right: $spacing-unit;
+            }
+            span {
+                font-size: 1rem; 
+                font-weight: bold;
+                @include breakpoint(sm) { 
+                    font-size: 1.1rem;
+                }
+            }
+        }
+        .sidebar-toggle-mobile { 
+            color: $white;
+            background: none;
+            border: none;
+            padding: math.div($spacing-unit, 2);
+            cursor: pointer;
+            .nav-icon { 
+                width: 24px;
+                height: 24px;
+            }
+            @include breakpoint(lg) {
+                display: none;
+            }
+        }
+    }
+
+    .admin-nav {
+        flex-grow: 1;
+        overflow-y: auto;
+        margin-top: $spacing-unit * 2;
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .admin-nav-link {
+            display: flex;
+            align-items: center;
+            padding: ($spacing-unit * 1.25) ($spacing-unit * 2); 
+            color: color.adjust($text-on-secondary, $alpha: -0.3);
+            text-decoration: none;
+            transition: background-color $transition-speed $transition-ease, color $transition-speed $transition-ease;
+            border-left: 3px solid transparent;
+
+            @include breakpoint(sm) { 
+                 padding: ($spacing-unit * 1.5) ($spacing-unit * 3);
+            }
+
+            .nav-icon {
+                width: 20px;
+                height: 20px;
+                margin-right: $spacing-unit * 1.25; 
+                stroke-width: 2; 
+                flex-shrink: 0; 
+                @include breakpoint(sm) {
+                    margin-right: $spacing-unit * 1.5;
+                }
+            }
+            span { 
+                transition: opacity 0.2s ease-in-out;
+            }
+
+            &:hover {
+                background-color: rgba($white, 0.1);
+                color: $white;
+            }
+            &.active {
+                background-color: $primary-color;
+                color: $text-on-primary;
+                font-weight: bold;
+                border-left-color: $accent-color;
+            }
+        }
+    }
+}
+
+.admin-sidebar.collapsed { 
+    @include breakpoint(lg) {
+        width: 70px;
+        .sidebar-header {
+            .admin-logo span { display: none; }
+            .admin-logo .logo-image { margin-right: 0; }
+            justify-content: center;
+        }
+        .admin-nav-link {
+            justify-content: center;
+            .nav-icon { margin-right: 0; }
+            span { display: none; } 
+        }
+    }
+}
+
+
+.admin-main-content {
+    flex-grow: 1;
+    background-color: $background-color;
+    padding-left: 0; 
+    transition: padding-left 0.3s ease-in-out;
+
+    @include breakpoint(lg) { 
+        padding-left: 260px;
+        &.sidebar-collapsed {
+            padding-left: 70px;
+        }
+    }
+}
+
+.admin-main-header {
+    background-color: $surface-color;
+    padding: $spacing-unit ($spacing-unit * 2); 
+    box-shadow: $box-shadow-light;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    @include breakpoint(sm){ 
+        padding: ($spacing-unit * 1.5) ($spacing-unit * 3);
+    }
+
+    .sidebar-toggle-desktop { 
+        color: $text-color;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: math.div($spacing-unit, 2);
+        display: inline-flex; 
+        align-items: center;
+        
+        .nav-icon { 
+            width: 22px;
+            height: 22px;
+            @include breakpoint(sm){
+                width: 24px;
+                height: 24px;
+            }
+        }
+    }
+
+    .admin-user-profile {
+        display: flex;
+        align-items: center;
+        span {
+            font-size: 0.9rem;
+            @include breakpoint(sm){
+                font-size: 1rem;
+            }
+        }
+        .admin-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-left: $spacing-unit;
+            object-fit: cover;
+            @include breakpoint(sm){
+                 width: 35px;
+                 height: 35px;
+            }
+        }
+    }
+}
+
+.admin-page-content {
+    padding: $spacing-unit * 2; 
+    @include breakpoint(sm) {
+        padding: $spacing-unit * 3;
+    }
+    @include breakpoint(md) {
+        padding: $spacing-unit * 4;
+    }
+
+    .admin-section {
+        display: none;
+        background-color: $surface-color;
+        padding: $spacing-unit * 2; 
+        border-radius: $border-radius-md;
+        box-shadow: $box-shadow-light;
+        margin-bottom: $spacing-unit * 3;
+
+        @include breakpoint(sm){
+            padding: $spacing-unit * 3;
+        }
+
+        &.active-section {
+            display: block;
+            animation: fadeInUp 0.4s $transition-ease;
+        }
+
+        h1 {
+            font-size: 1.5rem; 
+            color: $primary-color;
+            margin-bottom: $spacing-unit * 2;
+            padding-bottom: $spacing-unit;
+            border-bottom: 1px solid $border-color;
+            @include breakpoint(sm){
+                font-size: 1.8rem;
+                margin-bottom: $spacing-unit * 3;
+                padding-bottom: $spacing-unit * 1.5;
+            }
+        }
+    }
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: $spacing-unit * 2; 
+    @include breakpoint(xs){ 
+         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+         gap: $spacing-unit * 2.5;
+    }
+    @include breakpoint(md) {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: $spacing-unit * 3;
+    }
+    .stat-card {
+        background-color: $background-color;
+        padding: $spacing-unit * 2; 
+        border-radius: $border-radius-sm;
+        border: 1px solid $border-color;
+        text-align: center;
+        @include breakpoint(sm){
+             padding: $spacing-unit * 2.5;
+        }
+        h3 {
+            font-size: 0.9rem; 
+            color: $text-color-light;
+            margin-bottom: $spacing-unit * 0.75;
+             @include breakpoint(sm){
+                font-size: 1rem;
+                margin-bottom: $spacing-unit;
+            }
+        }
+        .stat-value {
+            font-size: 1.8rem; 
+            font-weight: bold;
+            color: $primary-color;
+            margin: 0;
+             @include breakpoint(sm){
+                 font-size: 2rem;
+            }
+        }
+    }
+}
+
+.actions-bar {
+    margin-bottom: $spacing-unit * 3;
+    display: flex;
+    flex-direction: column; 
+    gap: $spacing-unit;    
+    .btn {
+        width: 100%; 
+    }
+    @include breakpoint(sm) { 
+        flex-direction: row;
+        flex-wrap: wrap; 
+        gap: $spacing-unit * 1.5;
+        .btn {
+            width: auto; 
+        }
+    }
+}
+
+.admin-table-container {
+    overflow-x: auto;
+    margin-top: $spacing-unit * 2;
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem; 
+        th, td {
+            padding: $spacing-unit ($spacing-unit * 0.75);
+            text-align: left;
+            border-bottom: 1px solid $border-color;
+            white-space: nowrap; 
+        }
+        @include breakpoint(sm) {
+            font-size: 0.95rem; 
+            th, td {
+                padding: ($spacing-unit * 1.5) $spacing-unit;
+                white-space: normal; 
+            }
+        }
+        thead th {
+            background-color: $background-color;
+            font-weight: bold;
+            color: $secondary-color;
+        }
+        tbody tr:hover {
+            background-color: color.adjust($background-color, $lightness: 2%);
+        }
+        .status-pending { color: $warning-color; font-weight: bold; }
+        .status-preparing { color: $accent-color; font-weight: bold; }
+        .status-active { color: $success-color; font-weight: bold; }
+        .status-inactive { color: $error-color; font-weight: bold; }
+    }
+}
+
+.admin-form-section { // For styling promo form wrapper
+    background-color: color.scale($background-color, $lightness: -2%); 
+    padding: $spacing-unit * 2.5;
+    border-radius: $border-radius-sm;
+    margin-top: $spacing-unit * 3;
+    border: 1px solid $border-color;
+
+    h3 {
+        font-size: 1.2rem;
+        color: $secondary-color;
+        margin-top: 0;
+        margin-bottom: $spacing-unit * 2;
+        padding-bottom: $spacing-unit;
+        border-bottom: 1px solid $border-color;
+    }
+}
+
+#contactMessagesContainer { // Styles for displayed contact messages
+    .contact-message-item {
+        background-color: $surface-color; 
+        border: 1px solid $border-color;
+        border-left: 4px solid $primary-color; 
+        border-radius: $border-radius-sm;
+        padding: $spacing-unit * 2;
+        margin-bottom: $spacing-unit * 2;
+        box-shadow: $box-shadow-light;
+
+        &.is-read {
+            border-left-color: $border-color;
+            background-color: color.scale($surface-color, $lightness: -3%); // Slightly dimmer if read
+            opacity: 0.85; // Slightly faded
+        }
+
+        .msg-header {
+            display: flex;
+            flex-wrap: wrap; // Allow wrapping on small screens
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: $spacing-unit;
+            padding-bottom: $spacing-unit;
+            border-bottom: 1px dashed $border-color;
+        }
+        .msg-sender {
+            font-size: 0.9rem;
+            margin-right: $spacing-unit; // Space before date on same line
+             strong { color: $secondary-color; }
+        }
+        .msg-date { 
+            font-size: 0.8em; 
+            color: $text-color-light; 
+            white-space: nowrap; // Prevent date from wrapping
+        }
+        .msg-subject { 
+            font-weight: bold; 
+            margin: $spacing-unit 0; 
+            display: block; 
+            font-size: 1.05rem;
+            color: $text-color;
+        }
+        .msg-body {
+            white-space: pre-wrap; 
+            background-color: $background-color;
+            padding: $spacing-unit * 1.5;
+            border-radius: $border-radius-sm;
+            font-size: 0.95rem;
+            margin-bottom: $spacing-unit * 1.5;
+            max-height: 150px; // Prevent very long messages from taking too much space
+            overflow-y: auto;   // Allow scrolling for long messages
+        }
+        .msg-actions {
+            text-align: right; // Align action buttons to the right
+            button { 
+                margin-top: $spacing-unit; 
+                margin-left: $spacing-unit; // Use margin-left for spacing between buttons
+                &:first-child {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+    .no-messages {
+        text-align: center;
+        font-style: italic;
+        color: $text-color-light;
+        padding: $spacing-unit * 3;
+    }
+}
+.form-control-static {
+    padding-top: calc(#{($spacing-unit * 1.5)} + 1px); // Align with input text roughly
+    padding-bottom: calc(#{($spacing-unit * 1.5)} + 1px);
+    margin-bottom: 0;
+    min-height: calc(1.6em + (#{($spacing-unit * 1.5) * 2}) + 2px); // Approx height of an input
+    line-height: 1.6;
+    word-break: break-all; // For long IDs
+    font-weight: bold; // Make it stand out a bit
+    color: $text-color-light; // Slightly muted
+}

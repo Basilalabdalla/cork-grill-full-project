@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn about Cork Grill, our story, our passion for food, and our commitment to quality in Victorian Quarter, Cork.">
+    <title>About Us - Cork Grill</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo-link">
+                <img src="assets/images/logo-placeholder.png" alt="Cork Grill Logo" class="logo-image">
+            </a>
+            <nav class="main-navigation">
+                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                    <span class="nav-toggle-icon"></span>
+                </button>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="menu.html" class="nav-link">Menu</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link active">About Us</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="my-account.html" class="nav-link account-link">My Account</a></li>
+                    <li class="nav-item">
+                        <a href="cart.html" class="nav-link cart-link">
+                            Cart <span class="cart-count">(0)</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="page-hero-section" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('assets/images/about-hero-placeholder.jpg');">
+            <div class="container">
+                <h1>Our Story</h1>
+            </div>
+        </section>
+
+        <section class="about-content-section">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-text">
+                        <h2>Welcome to Cork Grill</h2>
+                        <p>Nestled in the vibrant Victorian Quarter at 20 Coburg St, Cork Grill is more than just a restaurant; it's a celebration of flavor, community, and the art of grilling. Our journey began with a simple idea: to create a welcoming space where people can enjoy high-quality, delicious food made with passion.</p>
+                        <p>We believe in using the freshest local ingredients whenever possible, ensuring that every dish we serve bursts with authentic taste. Our chefs are masters of the grill, transforming simple ingredients into culinary delights that will tantalize your taste buds.</p>
+                        <h3>Our Philosophy</h3>
+                        <p><strong>Quality Ingredients:</strong> We source the best produce and meats, prioritizing local suppliers to support our community and guarantee freshness.</p>
+                        <p><strong>Passionate Cooking:</strong> Every meal is prepared with care and attention to detail, reflecting our love for great food.</p>
+                        <p><strong>Warm Hospitality:</strong> We strive to make every guest feel like part of the Cork Grill family. Your satisfaction is our top priority.</p>
+                        <p>Whether you're joining us for a quick lunch, a family dinner, or a special celebration, we look forward to welcoming you to Cork Grill and sharing our passion for food with you.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="assets/images/restaurant-interior-placeholder.jpg" alt="Interior of Cork Grill restaurant">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer-main">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Cork Grill</h4>
+                    <p>20 Coburg St, Victorian Quarter, Cork</p>
+                    <p>Phone: <a href="tel:+353210000000">+353 21 000 0000</a> (Example)</p>
+                    <p>Email: <a href="mailto:info@corkgrill.ie">info@corkgrill.ie</a> (Example)</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Opening Hours</h4>
+                    <p>Mon - Thu: 12:00 PM - 10:00 PM</p>
+                    <p>Fri - Sat: 12:00 PM - 11:00 PM</p>
+                    <p>Sun: 1:00 PM - 9:00 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© <span id="current-year"></span> Cork Grill. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- ... existing footer, scroll-to-top button, toast-container ... -->
+
+    <a href="cart.html" id="flyingBasketBtn" class="flying-basket-btn" aria-label="View your shopping cart">
+        <svg class="basket-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        <span class="flying-basket-count">(0)</span>
+    </a>
+
+    <!-- Scripts -->
+    <button id="scrollTopBtn" class="scroll-top-btn" title="Go to top">↑</button>
+
+    <div id="toast-container" class="toast-container"></div> <!-- Added for consistency -->
+
+    <script src="js/data.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

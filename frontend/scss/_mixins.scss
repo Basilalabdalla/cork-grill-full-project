@@ -1,0 +1,39 @@
+@use 'variables' as *; // To access variables like $breakpoint-xl, $transition-speed
+@use "sass:color";    // For darken function replacement
+
+// Media Query Mixin
+@mixin breakpoint($point) {
+    @if $point == xl {
+        @media (min-width: $breakpoint-xl) { @content; }
+    } @else if $point == lg {
+        @media (min-width: $breakpoint-lg) { @content; }
+    } @else if $point == md {
+        @media (min-width: $breakpoint-md) { @content; }
+    } @else if $point == sm {
+        @media (min-width: $breakpoint-sm) { @content; }
+    } @else if $point == xs {
+        @media (min-width: $breakpoint-xs) { @content; }
+    }
+}
+
+// Flexbox Center Mixin
+@mixin flex-center($direction: row, $justify: center, $align: center) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+// Button Style Mixin
+@mixin button-variant($bg-color, $text-color, $hover-bg-color: color.adjust($bg-color, $blackness: 10%)) {
+    background-color: $bg-color;
+    color: $text-color;
+    border: 1px solid $bg-color; // Assuming border should match bg by default
+    transition: background-color $transition-speed $transition-ease, border-color $transition-speed $transition-ease;
+
+    &:hover, &:focus {
+        background-color: $hover-bg-color;
+        border-color: $hover-bg-color; // Keep border consistent on hover
+        color: $text-color; 
+    }
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to Cork Grill - Delicious food in the heart of Victorian Quarter, Cork. Online ordering available.">
+    <meta name="keywords" content="Cork Grill, restaurant, Cork, Victorian Quarter, food, online ordering, menu">
+    <title>Cork Grill - Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo-link">
+                <img src="assets/images/logo-placeholder.png" alt="Cork Grill Logo" class="logo-image">
+            </a>
+            <nav class="main-navigation">
+                <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                    <span class="nav-toggle-icon"></span>
+                </button>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+                    <li class="nav-item"><a href="menu.html" class="nav-link">Menu</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="my-account.html" class="nav-link account-link">
+                        My Account
+                    </a></li>
+                    <li class="nav-item">
+                        <a href="cart.html" class="nav-link cart-link">
+                            Cart <span class="cart-count">(0)</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="hero-section">
+            <div class="container">
+                <h1>Welcome to Cork Grill</h1>
+                <p>Experience the best flavors in Victorian Quarter, Cork.</p>
+                <a href="menu.html" class="btn btn-primary">View Our Menu</a>
+            </div>
+        </section>
+
+        <section class="featured-items-section">
+            <div class="container">
+                <h2>Featured Items</h2>
+                <div class="items-grid" id="featured-items-grid">
+                    <p>Loading featured items...</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="deals-section">
+            <div class="container">
+                <h2>Special Deals</h2>
+                <div class="deals-grid" id="deals-grid">
+                     <p>Loading special deals...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer-main">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Cork Grill</h4>
+                    <p>20 Coburg St, Victorian Quarter, Cork</p>
+                    <p>Phone: <a href="tel:+353210000000">+353 21 000 0000</a> (Example)</p>
+                    <p>Email: <a href="mailto:info@corkgrill.ie">info@corkgrill.ie</a> (Example)</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Opening Hours</h4>
+                    <p>Mon - Thu: 12:00 PM - 10:00 PM</p>
+                    <p>Fri - Sat: 12:00 PM - 11:00 PM</p>
+                    <p>Sun: 1:00 PM - 9:00 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© <span id="current-year"></span> Cork Grill. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Utility UI Elements -->
+    <a href="cart.html" id="flyingBasketBtn" class="flying-basket-btn" aria-label="View your shopping cart">
+        <svg class="basket-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        <span class="flying-basket-count">(0)</span>
+    </a>
+    <button id="scrollTopBtn" class="scroll-top-btn" title="Go to top">↑</button>
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
